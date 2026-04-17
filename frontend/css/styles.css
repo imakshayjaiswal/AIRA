@@ -1,0 +1,330 @@
+/* ===== ARIA — Black & White Glassmorphism Theme ===== */
+/* Optimized & organized: Variables → Reset → Typography → Background
+   → Glass Utilities → Layout → Components → Pages → Animations → Responsive */
+
+/* ───── Design Tokens ───── */
+:root {
+    --bg-dark: #000000;
+    --glass-bg: rgba(255, 255, 255, 0.04);
+    --glass-border: rgba(255, 255, 255, 0.10);
+    --glass-highlight: rgba(255, 255, 255, 0.12);
+    --text-primary: #ffffff;
+    --text-secondary: #888888;
+    --accent-glow: rgba(255, 255, 255, 0.15);
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --radius-xl: 24px;
+    --radius-pill: 100px;
+    --transition-fast: 0.2s ease;
+    --transition-base: 0.3s ease;
+    --transition-smooth: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ───── Reset ───── */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ───── Typography ───── */
+h1, h2, h3, .logo-text {
+    font-family: 'Outfit', sans-serif;
+}
+
+/* ───── Ambient Background ───── */
+#ambient-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    overflow: hidden;
+    background: #000;
+}
+
+.blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(140px);
+    opacity: 0.35;
+    animation: float 20s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+}
+
+.blob-1 {
+    width: 50vw;
+    height: 50vw;
+    background: #ffffff;
+    top: -20vw;
+    left: -10vw;
+    animation-delay: 0s;
+}
+
+.blob-2 {
+    width: 45vw;
+    height: 45vw;
+    background: #aaaaaa;
+    bottom: -20vw;
+    right: -10vw;
+    animation-delay: -5s;
+}
+
+.blob-3 {
+    width: 40vw;
+    height: 40vw;
+    background: #cccccc;
+    top: 30%;
+    left: 30%;
+    animation-delay: -10s;
+}
+
+/* ───── Glass Utilities ───── */
+.glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid var(--glass-border);
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
+    border-left: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: var(--radius-xl);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.45);
+}
+
+.glass-button {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    color: var(--text-primary);
+    padding: 12px 32px;
+    border-radius: var(--radius-pill);
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all var(--transition-base);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.glass-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.15), transparent);
+    transform: skewX(-20deg);
+    transition: all 0.5s ease;
+}
+
+.glass-button:hover::before {
+    left: 150%;
+}
+
+.glass-button:hover {
+    background: var(--glass-highlight);
+    border-color: rgba(255, 255, 255, 0.30);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px var(--accent-glow);
+}
+
+.glass-button:disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.glass-input {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--glass-border);
+    color: var(--text-primary);
+    padding: 16px;
+    border-radius: var(--radius-md);
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    transition: all var(--transition-base);
+    outline: none;
+}
+
+.glass-input::placeholder {
+    color: var(--text-secondary);
+}
+
+.glass-input:focus {
+    border-color: rgba(255, 255, 255, 0.45);
+    background: rgba(0, 0, 0, 0.40);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 255, 255, 0.06);
+}
+
+/* ───── App Layout ───── */
+#app {
+    transition: opacity var(--transition-smooth);
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+#app.dashboard-layout {
+    display: block;
+}
+
+/* ───── Form Groups ───── */
+.form-group {
+    margin-bottom: 24px;
+    width: 100%;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* ───── Sidebar Links ───── */
+.sidebar-link {
+    transition: all var(--transition-fast);
+}
+
+.sidebar-link:hover {
+    background: var(--glass-highlight) !important;
+    border-color: var(--glass-border) !important;
+}
+
+/* ───── Collapsible Details ───── */
+details summary {
+    transition: color var(--transition-fast);
+}
+
+details summary:hover {
+    color: var(--text-primary);
+}
+
+details[open] summary {
+    color: var(--text-primary);
+}
+
+/* ───── Triage Spinner ───── */
+.triage-spinner {
+    width: 48px;
+    height: 48px;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    margin: 0 auto;
+    animation: spin 0.8s linear infinite;
+}
+
+/* ───── Scrollbar ───── */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+/* ───── Animations ───── */
+@keyframes float {
+    0%   { transform: translate(0, 0) scale(1) rotate(0deg); }
+    33%  { transform: translate(15vw, 10vh) scale(1.1) rotate(45deg); }
+    66%  { transform: translate(-10vw, 20vh) scale(0.9) rotate(90deg); }
+    100% { transform: translate(-5vw, -5vh) scale(1.2) rotate(180deg); }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes breathe {
+    0%   { transform: scale(1);    box-shadow: 0 0 30px rgba(255,255,255,0.04); }
+    50%  { transform: scale(1.06); box-shadow: 0 0 60px rgba(255,255,255,0.10); }
+    100% { transform: scale(1);    box-shadow: 0 0 30px rgba(255,255,255,0.04); }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50%        { opacity: 0.4; }
+}
+
+/* ───── Responsive ───── */
+@media (max-width: 768px) {
+    #app.dashboard-layout > div {
+        grid-template-columns: 1fr !important;
+        grid-template-rows: 60px 1fr !important;
+        grid-template-areas:
+            "header"
+            "main" !important;
+    }
+
+    #app.dashboard-layout aside,
+    .triage-sidebar {
+        display: none !important;
+    }
+
+    .triage-header {
+        flex-wrap: wrap;
+        padding: 0 1rem !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .glass-panel {
+        border-radius: var(--radius-md) !important;
+    }
+
+    .glass-button {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+}
