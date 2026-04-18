@@ -2,7 +2,7 @@
 
 ![ARIA Banner](https://raw.githubusercontent.com/imakshayjaiswal/AIRA/main/frontend/assets/logo.png)
 
-**ARIA** is a high-performance, minimalist email management system designed to eliminate digital noise and surface what truly matters. Built with a strict **Black & White Glassmorphism** aesthetic, ARIA leverages state-of-the-art AI (NVIDIA NIM, Gemini, or OpenAI) to categorize your inbox and provide executive summaries of your messages.
+**ARIA** is a high-performance, minimalist meassage management system designed to eliminate digital noise and surface what truly matters. Built with a strict **Black & White Glassmorphism** aesthetic, ARIA leverages state-of-the-art AI (NVIDIA NIM, Gemini, or OpenAI) to categorize your inbox and provide executive summaries of your messages.
 
 ## ✨ Features
 
