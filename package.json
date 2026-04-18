@@ -1,0 +1,13 @@
+{
+  "name": "aria-unified",
+  "version": "1.0.0",
+  "description": "Unified repository for ARIA Email Triage",
+  "scripts": {
+    "start": "npm start --prefix backend",
+    "install-backend": "npm install --prefix backend",
+    "build": "echo 'No build step required for static frontend'"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

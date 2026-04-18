@@ -10,7 +10,7 @@ window.Page_Dashboard = async function () {
 
     container.innerHTML = `
         <!-- Header -->
-        <header style="grid-area:header;display:flex;justify-content:space-between;align-items:center;padding:0 2rem;border-bottom:1px solid var(--glass-border);background:rgba(0,0,0,0.15);backdrop-filter:blur(5px);">
+        <header style="grid-area:header;display:flex;justify-content:space-between;align-items:center;padding:0 2rem;border-bottom:1px solid transparent;border-image:linear-gradient(to right, rgba(255,255,255,0.08), transparent) 1;">
             <h2 style="font-family:'Outfit',sans-serif;font-size:1.4rem;font-weight:600;">Focus Digest</h2>
             <div style="display:flex;gap:1rem;align-items:center;">
                 <span id="user-badge" style="font-size:0.8rem;color:var(--text-secondary);"></span>
@@ -19,30 +19,33 @@ window.Page_Dashboard = async function () {
         </header>
 
         <!-- Sidebar -->
-        <aside style="grid-area:sidebar;border-right:1px solid var(--glass-border);background:rgba(0,0,0,0.25);backdrop-filter:blur(15px);display:flex;flex-direction:column;padding:2rem 1.5rem;overflow-y:auto;">
-            <div class="logo-text" style="font-size:2rem;font-weight:800;letter-spacing:0.2rem;margin-bottom:2.5rem;background:linear-gradient(135deg,#ffffff,rgba(255,255,255,0.35));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">ARIA</div>
-            <nav style="display:flex;flex-direction:column;gap:0.5rem;margin-bottom:2rem;">
+        <aside style="grid-area:sidebar;border-right:1px solid transparent;border-image:linear-gradient(to bottom, rgba(255,255,255,0.08), transparent) 1;display:flex;flex-direction:column;overflow-y:auto;">
+            <div style="height:70px;padding:0 2rem;display:flex;align-items:center;">
+                <div class="logo-text" style="font-size:1.6rem;font-weight:800;letter-spacing:0.15rem;background:linear-gradient(135deg,#ffffff,rgba(255,255,255,0.4));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">ARIA</div>
+            </div>
+            <div style="padding:2rem 1.5rem;display:flex;flex-direction:column;flex:1;">
+                <div style="flex:1;"></div>
+                <nav style="display:flex;flex-direction:column;gap:0.5rem;">
                 <a href="#/dashboard" class="sidebar-link glass-button" style="padding:12px 15px;border-radius:10px;text-align:left;background:var(--glass-highlight);text-decoration:none;color:var(--text-primary);">📊 Focus Digest</a>
                 <a href="#/triage"   class="sidebar-link glass-button" style="padding:12px 15px;border-radius:10px;text-align:left;background:transparent;border-color:transparent;text-decoration:none;color:var(--text-primary);">✉️ Manual Triage</a>
                 <a href="#/insights" class="sidebar-link glass-button" style="padding:12px 15px;border-radius:10px;text-align:left;background:transparent;border-color:transparent;text-decoration:none;color:var(--text-primary);">📈 Insights</a>
                 <a href="#/feedback" class="sidebar-link glass-button" style="padding:12px 15px;border-radius:10px;text-align:left;background:transparent;border-color:transparent;text-decoration:none;color:var(--text-primary);">💬 Feedback</a>
             </nav>
-            <div class="glass-panel" style="padding:1rem;border-radius:12px;font-size:0.8rem;line-height:1.7;">
-                <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
-                    <div style="width:8px;height:8px;border-radius:50%;background:#00ff88;box-shadow:0 0 8px #00ff88;"></div>
-                    <span style="color:#00ff88;font-weight:500;">AI Engine Active</span>
-                </div>
-                <div style="color:var(--text-secondary);">NVIDIA NIM · IMAP Sync</div>
-            </div>
             <div style="flex:1;"></div>
-            <div style="padding-top:1.5rem;border-top:1px solid var(--glass-border);font-size:0.75rem;color:var(--text-secondary);text-align:center;">ARIA v1.0.4</div>
+            <div style="padding-top:1.5rem;border-top:1px solid transparent;border-image:linear-gradient(to right, transparent, rgba(255,255,255,0.06), transparent) 1;display:flex;flex-direction:column;align-items:center;gap:4px;">
+                <div style="display:flex;align-items:center;gap:6px;">
+                    <div style="width:5px;height:5px;border-radius:50%;background:#00ff88;box-shadow:0 0 6px rgba(0,255,136,0.5);"></div>
+                    <span style="color:var(--text-secondary);font-weight:500;font-size:0.7rem;">AI Engine Active</span>
+                </div>
+                <div style="color:var(--text-secondary);font-size:0.65rem;opacity:0.6;">NVIDIA NIM · IMAP Sync · v1.0.4</div>
+            </div>
         </aside>
 
         <!-- Main -->
         <main style="grid-area:main;overflow-y:auto;padding:2.5rem;">
 
             <!-- Setup Card -->
-            <div id="setup-card" class="glass-panel" style="padding:2.5rem;border-radius:20px;margin-bottom:2rem;">
+            <div id="setup-card" class="glass-panel" style="background: rgba(35, 35, 35, 0.9); padding:2.5rem;border-radius:20px;margin-bottom:2rem;border: 1px solid rgba(255,255,255,0.08);">
 
                 <h3 style="font-family:'Outfit',sans-serif;font-size:1.5rem;margin-bottom:0.4rem;">Sync Your Gmail</h3>
                 <p style="color:var(--text-secondary);font-size:0.9rem;margin-bottom:0;">ARIA fetches your emails, removes noise, and surfaces what actually needs your attention.</p>
@@ -56,7 +59,7 @@ window.Page_Dashboard = async function () {
                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:1rem;margin-bottom:1.5rem;">
                     <div>
                         <label style="font-size:0.85rem;font-weight:500;color:var(--text-secondary);display:block;margin-bottom:8px;">Your Gmail Address</label>
-                        <input type="email" id="sync-email" class="glass-input" placeholder="name@gmail.com" style="width:100%;padding:12px;font-size:0.95rem;border-radius:10px;" />
+                        <input type="email" id="sync-email" class="glass-input" placeholder="name@gmail.com" style="background: rgba(15, 15, 15, 0.9); width:100%;padding:12px;font-size:0.95rem;border-radius:10px;border: 1px solid rgba(255,255,255,0.05);" />
                     </div>
                     <div>
                         <label style="font-size:0.85rem;font-weight:500;color:var(--text-secondary);display:flex;align-items:center;gap:6px;margin-bottom:8px;position:relative;">
@@ -82,22 +85,23 @@ window.Page_Dashboard = async function () {
                                 </div>
                             </div>
                         </label>
-                        <input type="text" id="sync-pass" class="glass-input" placeholder="16-character code" style="width:100%;padding:12px;font-size:0.95rem;border-radius:10px;letter-spacing:0.05em;" />
+                        <input type="text" id="sync-pass" class="glass-input" placeholder="16-character code" style="background: rgba(15, 15, 15, 0.9); width:100%;padding:12px;font-size:0.95rem;border-radius:10px;letter-spacing:0.05em;border: 1px solid rgba(255,255,255,0.05);" />
                     </div>
                 </div>
 
                 <div style="display:flex;gap:1rem;">
-                    <button id="fetch-inbox-btn" class="glass-button" style="flex:1;padding:16px;font-size:1rem;font-weight:600;background:rgba(255,255,255,0.12);border-radius:12px;letter-spacing:0.04em;">
+                    <button id="fetch-inbox-btn" class="glass-button" style="flex:1;padding:16px;font-size:1rem;font-weight:600;background:rgba(85,85,85,0.85);border-radius:12px;letter-spacing:0.04em;">
                         ✦ &nbsp;Fetch &amp; Analyze Inbox
                     </button>
-                    <button id="demo-mode-btn" class="glass-button" style="padding:16px 24px;font-size:1rem;font-weight:600;background:rgba(52,199,89,0.15);color:#34c759;border-color:rgba(52,199,89,0.3);border-radius:12px;">
+                    <button id="demo-mode-btn" class="glass-button" style="padding:16px 24px;font-size:1rem;font-weight:600;background:#1a4325;color:#34c759;border-color:rgba(52,199,89,0.3);border-radius:12px;">
                         🚀 Run Hackathon Demo
                     </button>
                 </div>
 
                 <div id="sync-error" style="display:none;margin-top:1rem;color:#ff6b6b;font-size:0.85rem;padding:12px 16px;background:rgba(255,59,59,0.08);border-radius:10px;border:1px solid rgba(255,59,59,0.2);line-height:1.6;"></div>
-                <div id="sync-loading" style="display:none;margin-top:1rem;text-align:center;color:var(--text-secondary);font-size:0.9rem;padding:0.8rem;">
-                    <span style="animation:pulse 1.5s infinite;">Connecting to Gmail IMAP and triaging with AI...</span>
+                <div id="sync-loading" style="display:none;margin-top:1rem;">
+                    <div class="skeleton-card"><div class="skeleton-box" style="height:20px;width:30%;margin-bottom:15px;"></div><div class="skeleton-box" style="height:15px;width:100%;margin-bottom:10px;"></div><div class="skeleton-box" style="height:15px;width:80%;"></div></div>
+                    <div class="skeleton-card"><div class="skeleton-box" style="height:20px;width:40%;margin-bottom:15px;"></div><div class="skeleton-box" style="height:15px;width:95%;margin-bottom:10px;"></div><div class="skeleton-box" style="height:15px;width:60%;"></div></div>
                 </div>
             </div>
 
@@ -105,6 +109,27 @@ window.Page_Dashboard = async function () {
             <div id="digest-stat-line" style="font-size:1rem;color:var(--text-secondary);margin-bottom:1.5rem;display:none;padding:1rem 1.5rem;background:rgba(255,255,255,0.04);border-radius:12px;"></div>
             <div id="top-priority-list" style="display:flex;flex-direction:column;gap:1.2rem;"></div>
             <div id="noise-reduced-notice" style="display:none;margin-top:3rem;text-align:center;padding:2rem;border:1px dashed var(--glass-border);border-radius:20px;opacity:0.5;font-size:0.9rem;color:var(--text-secondary);"></div>
+
+            <!-- Email Modal -->
+            <div id="email-reader-modal" class="modal-overlay">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div>
+                            <h3 id="modal-subject" style="font-family:'Outfit',sans-serif;font-weight:600;font-size:1.4rem;margin-bottom:0.2rem;"></h3>
+                            <div id="modal-sender" style="color:var(--text-secondary);font-size:0.85rem;"></div>
+                        </div>
+                        <button class="modal-close-btn" id="close-modal-btn">✖</button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="modal-summary-box" style="margin-bottom:2rem;padding-left:1.2rem;background:transparent;border-left:3px solid transparent;border-image:linear-gradient(to bottom, rgba(255,255,255,0.4), rgba(255,255,255,0)) 1;border-radius:0;">
+                             <div style="font-family:'Inter',sans-serif;font-weight:500;color:var(--text-secondary);font-size:0.75rem;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px;">Context Match</div>
+                             <div id="modal-summary-content" style="color:var(--text-primary);font-size:0.95rem;line-height:1.6;"></div>
+                        </div>
+                        <div style="font-family:'Inter',sans-serif;font-weight:500;color:var(--text-secondary);font-size:0.75rem;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:12px;">Raw Message</div>
+                        <div id="modal-email-text" style="white-space: pre-wrap; font-size: 0.95rem; line-height: 1.6; color: var(--text-secondary);"></div>
+                    </div>
+                </div>
+            </div>
 
         </main>
     `;
@@ -137,6 +162,14 @@ window.Page_Dashboard = async function () {
     const statLine = container.querySelector('#digest-stat-line');
     const listEl = container.querySelector('#top-priority-list');
 
+    const modalEl = container.querySelector('#email-reader-modal');
+    container.querySelector('#close-modal-btn').addEventListener('click', () => {
+        modalEl.style.display = 'none';
+    });
+    modalEl.addEventListener('click', (e) => {
+        if (e.target === modalEl) modalEl.style.display = 'none';
+    });
+
     // ─── Render results ────────────────────────────────────────
 
     function renderDigest(emails) {
@@ -155,14 +188,20 @@ window.Page_Dashboard = async function () {
             const pColor = getPriorityColor(r.priority_score || 0);
             const catStyle = getCategoryStyle(r.category);
             const card = document.createElement('div');
-            card.className = 'glass-panel';
+            card.className = 'glass-panel email-card-hover';
             card.style.cssText = `padding:1.6rem 2rem;border-radius:16px;border-left:5px solid ${pColor};animation:slideUp 0.4s ease ${i * 0.08}s both;`;
             card.innerHTML = `
                 <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:1.5rem;">
                     <div style="flex:1;min-width:0;">
-                        <div style="display:flex;gap:0.5rem;margin-bottom:0.7rem;flex-wrap:wrap;">
+                        <div style="display:flex;gap:0.5rem;margin-bottom:0.7rem;flex-wrap:wrap;align-items:center;">
                             <span style="background:${catStyle.bg};color:${catStyle.color};padding:3px 12px;border-radius:20px;font-size:0.75rem;font-weight:600;">${catStyle.label}</span>
                             <span style="font-size:0.75rem;color:var(--text-secondary);padding:3px 0;">Action: <strong style="color:var(--text-primary);">${r.action || '—'}</strong></span>
+                            <div class="action-reveal-container" style="margin-left:auto;">
+                                <button class="action-btn action-btn-read">View</button>
+                                <button class="action-btn action-btn-resolve">Resolve</button>
+                                <button class="action-btn action-btn-snooze">Snooze</button>
+                                <button class="action-btn action-btn-archive">Archive</button>
+                            </div>
                         </div>
                         <div style="font-size:1.05rem;font-weight:600;margin-bottom:0.5rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${r.metadata?.emailSubject || ''}">
                             ${r.metadata?.emailSubject || r.subject || 'Email'}
@@ -173,6 +212,37 @@ window.Page_Dashboard = async function () {
                 </div>
             `;
             listEl.appendChild(card);
+
+            const readBtn = card.querySelector('.action-btn-read');
+            if (readBtn) {
+                readBtn.addEventListener('click', () => {
+                    container.querySelector('#modal-subject').textContent = r.metadata?.emailSubject || r.subject || 'No Subject';
+                    container.querySelector('#modal-sender').textContent = `From: ${r.metadata?.emailFrom || r.from || 'Unknown Sender'}`;
+
+                    container.querySelector('#modal-summary-content').innerHTML = `
+                        <div style="margin-bottom:6px;"><strong style="color:rgba(255,255,255,0.9);font-weight:500;">Reasoning:</strong> <span style="opacity:0.8;">${r.reason || 'N/A'}</span></div>
+                        <div><strong style="color:rgba(255,255,255,0.9);font-weight:500;">TL;DR:</strong> <span style="opacity:0.8;">${r.key_info || 'N/A'}</span></div>
+                    `;
+
+                    container.querySelector('#modal-email-text').textContent = r.metadata?.emailBody || 'No email body available.';
+                    modalEl.style.display = 'flex';
+                });
+            }
+
+            const attachRemoveAnimation = (selector) => {
+                const btn = card.querySelector(selector);
+                if (btn) {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        card.classList.add('slide-out-right');
+                        setTimeout(() => card.remove(), 300);
+                    });
+                }
+            };
+
+            attachRemoveAnimation('.action-btn-resolve');
+            attachRemoveAnimation('.action-btn-snooze');
+            attachRemoveAnimation('.action-btn-archive');
         });
 
         // Generate Chart.js Stats
@@ -187,9 +257,9 @@ window.Page_Dashboard = async function () {
 
         const timeline = {};
         const today = new Date();
-        today.setHours(0,0,0,0);
-        
-        for(let i=4; i>=0; i--) {
+        today.setHours(0, 0, 0, 0);
+
+        for (let i = 4; i >= 0; i--) {
             const d = new Date(today);
             d.setDate(d.getDate() - i);
             const label = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
@@ -197,14 +267,14 @@ window.Page_Dashboard = async function () {
         }
 
         emails.forEach(e => {
-            if(e.metadata && e.metadata.emailDate) {
+            if (e.metadata && e.metadata.emailDate) {
                 const d = new Date(e.metadata.emailDate);
-                d.setHours(0,0,0,0);
+                d.setHours(0, 0, 0, 0);
                 const label = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-                if(timeline[label] !== undefined) timeline[label]++;
+                if (timeline[label] !== undefined) timeline[label]++;
             } else {
                 const label = today.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-                if(timeline[label] !== undefined) timeline[label]++;
+                if (timeline[label] !== undefined) timeline[label]++;
             }
         });
 
@@ -228,14 +298,14 @@ window.Page_Dashboard = async function () {
                 </div>
             </div>
         `;
-        
+
         const gDiv = document.createElement('div');
         gDiv.innerHTML = graphHtml;
         listEl.appendChild(gDiv);
 
         setTimeout(() => {
             const ctxC = document.getElementById('circularChart');
-            if(ctxC && window.Chart) {
+            if (ctxC && window.Chart) {
                 new Chart(ctxC, {
                     type: 'doughnut',
                     data: {
@@ -247,11 +317,11 @@ window.Page_Dashboard = async function () {
                             cutout: '80%'
                         }]
                     },
-                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { tooltip: { backgroundColor: 'rgba(0,0,0,0.8)', titleColor: '#fff', bodyColor: '#fff', borderColor: 'rgba(255,255,255,0.1)', borderWidth: 1 }, legend: { display: false } } }
                 });
             }
             const ctxH = document.getElementById('hologramChart');
-            if(ctxH && window.Chart) {
+            if (ctxH && window.Chart) {
                 const ctx = ctxH.getContext('2d');
                 const grad = ctx.createLinearGradient(0, 0, 0, 160);
                 grad.addColorStop(0, 'rgba(0, 255, 136, 0.3)');
@@ -270,13 +340,13 @@ window.Page_Dashboard = async function () {
                             pointBackgroundColor: '#00ff88'
                         }]
                     },
-                    options: { 
-                        responsive: true, maintainAspectRatio: false, 
-                        scales: { 
-                            y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: 'rgba(255,255,255,0.4)', font: {size: 10} } },
-                            x: { grid: { display: false }, ticks: { color: 'rgba(255,255,255,0.4)', font: {size: 10} } }
+                    options: {
+                        responsive: true, maintainAspectRatio: false,
+                        scales: {
+                            y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: 'rgba(255,255,255,0.4)', font: { size: 10 } } },
+                            x: { grid: { display: false }, ticks: { color: 'rgba(255,255,255,0.4)', font: { size: 10 } } }
                         },
-                        plugins: { legend: { display: false } } 
+                        plugins: { tooltip: { backgroundColor: 'rgba(0,0,0,0.8)', titleColor: '#fff', bodyColor: '#fff', borderColor: 'rgba(255,255,255,0.1)', borderWidth: 1 }, legend: { display: false } }
                     }
                 });
             }

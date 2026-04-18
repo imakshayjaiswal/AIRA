@@ -101,7 +101,7 @@ You MUST return ONLY a single JSON object. Do NOT include any preamble, conversa
   "urgency_level": "<critical|high|medium|low|none>",
   "action": "<reply|review|schedule|archive|delete>",
   "reason": "<one clear sentence>",
-  "key_info": "<most important info extracted>",
+  "key_info": "<comprehensive 3-4 sentence executive summary covering the entire email content>",
   "estimated_time": "<1min|5min|15min|30min+>",
   "sender_type": "<boss|coworker|client|vendor|automated|marketing|unknown>",
   "requires_response": <true|false>,

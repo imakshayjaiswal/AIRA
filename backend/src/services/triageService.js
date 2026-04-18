@@ -115,6 +115,7 @@ async function triageEmail(email, options = {}) {
       emailSubject: email.subject,
       emailFrom: email.from,
       emailDate: email.date,
+      emailBody: email.body,
       model: options.model || 'default'
     },
   };
