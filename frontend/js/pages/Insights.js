@@ -58,7 +58,6 @@ window.Page_Insights = async function() {
             <nav style="display:flex; flex-direction:column; gap:0.5rem; margin-bottom:2rem;">
                 <a href="#/dashboard" class="sidebar-link glass-button" style="padding:12px 15px; border-radius:10px; text-align:left; background:transparent; border-color:transparent; text-decoration:none; color:var(--text-primary);">📊 Focus Digest</a>
                 <a href="#/triage"    class="sidebar-link glass-button" style="padding:12px 15px; border-radius:10px; text-align:left; background:transparent; border-color:transparent; text-decoration:none; color:var(--text-primary);">✉️ Manual Triage</a>
-                <a href="#/focus"     class="sidebar-link glass-button" style="padding:12px 15px; border-radius:10px; text-align:left; background:transparent; border-color:transparent; text-decoration:none; color:var(--text-primary);">🎯 Focus Chamber</a>
                 <a href="#/insights"  class="sidebar-link glass-button" style="padding:12px 15px; border-radius:10px; text-align:left; background:var(--glass-highlight); text-decoration:none; color:var(--text-primary);">📈 Insights</a>
                 <a href="#/feedback"  class="sidebar-link glass-button" style="padding:12px 15px; border-radius:10px; text-align:left; background:transparent; border-color:transparent; text-decoration:none; color:var(--text-primary);">💬 Feedback</a>
             </nav>

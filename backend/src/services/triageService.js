@@ -92,7 +92,7 @@ async function triageEmail(email, options = {}) {
     ...options
   });
 
-  const userPrompt = buildUserPrompt(email);
+  const userPrompt = buildUserPrompt(email, options.userContext);
   const rawResponse = await aiProvider.complete(SYSTEM_PROMPT, userPrompt, 3, options);
   const result = parseAndValidate(rawResponse);
 
@@ -114,6 +114,7 @@ async function triageEmail(email, options = {}) {
       aiProvider: process.env.AI_PROVIDER,
       emailSubject: email.subject,
       emailFrom: email.from,
+      emailDate: email.date,
       model: options.model || 'default'
     },
   };
@@ -129,7 +130,7 @@ async function triageEmail(email, options = {}) {
 async function triageBatch(emails, options = {}) {
   const batchId = uuidv4();
   const startTime = Date.now();
-  const CONCURRENCY = 5;
+  const CONCURRENCY = 10;
 
   logger.info('Starting batch triage', { batchId, count: emails.length, ...options });
 

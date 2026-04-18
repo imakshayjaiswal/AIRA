@@ -47,53 +47,42 @@ window.Page_Dashboard = async function () {
                 <h3 style="font-family:'Outfit',sans-serif;font-size:1.5rem;margin-bottom:0.4rem;">Sync Your Gmail</h3>
                 <p style="color:var(--text-secondary);font-size:0.9rem;margin-bottom:0;">ARIA fetches your emails, removes noise, and surfaces what actually needs your attention.</p>
 
-                <!-- Step indicator -->
-                <div style="display:flex;gap:0;margin:1.8rem 0 2rem;border-radius:10px;overflow:hidden;border:1px solid var(--glass-border);">
-                    <div style="flex:1;padding:10px;text-align:center;background:rgba(255,255,255,0.08);font-size:0.8rem;font-weight:600;border-right:1px solid var(--glass-border);">Step 1<br><span style="font-weight:400;color:var(--text-secondary);">Enable IMAP</span></div>
-                    <div style="flex:1;padding:10px;text-align:center;font-size:0.8rem;font-weight:600;border-right:1px solid var(--glass-border);">Step 2<br><span style="font-weight:400;color:var(--text-secondary);">Create App Password</span></div>
-                    <div style="flex:1;padding:10px;text-align:center;font-size:0.8rem;font-weight:600;">Step 3<br><span style="font-weight:400;color:var(--text-secondary);">Paste &amp; Sync</span></div>
-                </div>
-
-                <!-- Warning box -->
-                <div style="background:rgba(255,149,0,0.08);border:1px solid rgba(255,149,0,0.25);border-radius:12px;padding:1rem 1.2rem;margin-bottom:1.8rem;font-size:0.85rem;line-height:1.7;color:var(--text-secondary);">
-                    ⚠️ <strong style="color:#ffaa33;">Do NOT use your normal Gmail password.</strong> Google blocks that by design.
-                    You need a special <strong style="color:var(--text-primary);">App Password</strong> — a 16-character code created specifically for ARIA.
-                </div>
-
-                <!-- Instructions -->
-                <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:2rem;">
-                    <div style="background:rgba(255,255,255,0.04);border:1px solid var(--glass-border);border-radius:14px;padding:1.2rem;">
-                        <div style="font-size:1.4rem;margin-bottom:0.6rem;">①</div>
-                        <div style="font-weight:600;font-size:0.9rem;margin-bottom:0.4rem;">Enable Gmail IMAP</div>
-                        <div style="font-size:0.8rem;color:var(--text-secondary);line-height:1.6;">
-                            Open Gmail → <strong>Settings ⚙️</strong> → <strong>See All Settings</strong> → <strong>Forwarding and POP/IMAP</strong> tab → Enable IMAP → Save.
-                        </div>
-                    </div>
-                    <div style="background:rgba(255,255,255,0.04);border:1px solid var(--glass-border);border-radius:14px;padding:1.2rem;">
-                        <div style="font-size:1.4rem;margin-bottom:0.6rem;">②</div>
-                        <div style="font-weight:600;font-size:0.9rem;margin-bottom:0.4rem;">Create App Password</div>
-                        <div style="font-size:0.8rem;color:var(--text-secondary);line-height:1.6;">
-                            Go to <a href="https://myaccount.google.com/apppasswords" target="_blank" style="color:rgba(255,255,255,0.5);">myaccount.google.com/apppasswords</a> → Select app: <strong>Mail</strong> → Select device: <strong>Windows PC</strong> → Click <strong>Generate</strong>.
-                        </div>
-                    </div>
-                    <div style="background:rgba(255,255,255,0.04);border:1px solid var(--glass-border);border-radius:14px;padding:1.2rem;">
-                        <div style="font-size:1.4rem;margin-bottom:0.6rem;">③</div>
-                        <div style="font-weight:600;font-size:0.9rem;margin-bottom:0.4rem;">Come back &amp; paste</div>
-                        <div style="font-size:0.8rem;color:var(--text-secondary);line-height:1.6;">
-                            Google shows a <strong>16-character code</strong>. Copy it. Come back to this tab. Paste it in the field below. Click Sync.
-                        </div>
-                    </div>
-                </div>
+                <style>
+                    .tooltip-container:hover .cloud-tooltip { display: block !important; animation: popUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+                    @keyframes popUp { from { opacity:0; transform:translateX(-50%) translateY(15px) scale(0.95); } to { opacity:1; transform:translateX(-50%) translateY(0) scale(1); } }
+                </style>
 
                 <!-- Credential Input -->
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;">
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:1rem;margin-bottom:1.5rem;">
                     <div>
-                        <label style="font-size:0.8rem;color:var(--text-secondary);display:block;margin-bottom:6px;">Your Gmail Address</label>
-                        <input type="email" id="sync-email" class="glass-input" placeholder="yourname@gmail.com" style="width:100%;" />
+                        <label style="font-size:0.85rem;font-weight:500;color:var(--text-secondary);display:block;margin-bottom:8px;">Your Gmail Address</label>
+                        <input type="email" id="sync-email" class="glass-input" placeholder="name@gmail.com" style="width:100%;padding:12px;font-size:0.95rem;border-radius:10px;" />
                     </div>
                     <div>
-                        <label style="font-size:0.8rem;color:var(--text-secondary);display:block;margin-bottom:6px;">App Password <em style="font-style:normal;opacity:0.5;">(16 chars — paste directly, spaces OK)</em></label>
-                        <input type="text" id="sync-pass" class="glass-input" placeholder="abcd efgh ijkl mnop" style="width:100%;letter-spacing:0.05em;" />
+                        <label style="font-size:0.85rem;font-weight:500;color:var(--text-secondary);display:flex;align-items:center;gap:6px;margin-bottom:8px;position:relative;">
+                            App Password (Optional)
+                            <div class="tooltip-container" style="position:relative;cursor:pointer;display:inline-flex;">
+                                <div style="background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.1);border-radius:50%;width:18px;height:18px;display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:bold;color:var(--text-primary);transition:all 0.2s;">i</div>
+                                <div class="cloud-tooltip" style="display:none;position:absolute;bottom:calc(100% + 15px);left:50%;transform:translateX(-50%);width:340px;background:rgba(20,20,20,0.98);backdrop-filter:blur(30px);border:1px solid rgba(255,255,255,0.15);border-radius:18px;padding:1.5rem;box-shadow:0 20px 50px rgba(0,0,0,0.6);z-index:999;color:var(--text-primary);font-size:0.85rem;line-height:1.6;cursor:default;">
+                                    <h4 style="margin:0 0 10px 0;font-size:0.95rem;color:#ffaa33;border-bottom:1px solid rgba(255,255,255,0.1);padding-bottom:10px;">⚠️ Setup Instructions</h4>
+                                    <p style="margin:0 0 15px 0;opacity:0.8;">Do NOT use your normal Gmail password. You need a 16-character App Password.</p>
+                                    
+                                    <div style="font-weight:600;color:#fff;">① Enable Gmail IMAP</div>
+                                    <div style="opacity:0.6;margin-bottom:10px;font-size:0.75rem;">Gmail Settings ⚙️ → See All Settings → Forwarding and POP/IMAP → Enable IMAP → Save.</div>
+                                    
+                                    <div style="font-weight:600;color:#fff;">② Create App Password</div>
+                                    <div style="opacity:0.6;margin-bottom:10px;font-size:0.75rem;">myaccount.google.com/apppasswords → Select app: Mail → Windows PC → Generate.</div>
+                                    
+                                    <div style="font-weight:600;color:#fff;">③ Paste & Sync</div>
+                                    <div style="opacity:0.6;font-size:0.75rem;">Copy that 16-character code and paste it below.</div>
+                                    
+                                    <!-- Tooltip arrow -->
+                                    <div style="position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-top:8px solid rgba(255,255,255,0.15);"></div>
+                                    <div style="position:absolute;bottom:-7px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-top:8px solid rgba(20,20,20,0.98);"></div>
+                                </div>
+                            </div>
+                        </label>
+                        <input type="text" id="sync-pass" class="glass-input" placeholder="16-character code" style="width:100%;padding:12px;font-size:0.95rem;border-radius:10px;letter-spacing:0.05em;" />
                     </div>
                 </div>
 
@@ -157,7 +146,10 @@ window.Page_Dashboard = async function () {
             return;
         }
         listEl.innerHTML = '';
-        const sorted = [...emails].sort((a, b) => (b.priority_score || 0) - (a.priority_score || 0));
+        const important = emails.filter(r => r.category !== 'noise' && (r.priority_score || 0) >= 20);
+        const noise = emails.filter(r => r.category === 'noise' || (r.priority_score || 0) < 20);
+
+        const sorted = [...important].sort((a, b) => (b.priority_score || 0) - (a.priority_score || 0));
 
         sorted.forEach((r, i) => {
             const pColor = getPriorityColor(r.priority_score || 0);
@@ -183,9 +175,135 @@ window.Page_Dashboard = async function () {
             listEl.appendChild(card);
         });
 
-        container.querySelector('#noise-reduced-notice').style.display = 'block';
-        container.querySelector('#noise-reduced-notice').textContent =
-            `${Math.max(0, 20 - sorted.length)} additional emails were automatically managed — promotions, noise and low-priority items removed.`;
+        // Generate Chart.js Stats
+        const stats = { critical: 0, high: 0, medium: 0, low: 0, noise: noise.length };
+        important.forEach(r => {
+            const score = r.priority_score || 0;
+            if (score >= 85) stats.critical++;
+            else if (score >= 65) stats.high++;
+            else if (score >= 45) stats.medium++;
+            else stats.low++;
+        });
+
+        const timeline = {};
+        const today = new Date();
+        today.setHours(0,0,0,0);
+        
+        for(let i=4; i>=0; i--) {
+            const d = new Date(today);
+            d.setDate(d.getDate() - i);
+            const label = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+            timeline[label] = 0;
+        }
+
+        emails.forEach(e => {
+            if(e.metadata && e.metadata.emailDate) {
+                const d = new Date(e.metadata.emailDate);
+                d.setHours(0,0,0,0);
+                const label = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                if(timeline[label] !== undefined) timeline[label]++;
+            } else {
+                const label = today.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                if(timeline[label] !== undefined) timeline[label]++;
+            }
+        });
+
+        const graphHtml = `
+            <div class="glass-panel holographic-analytics" style="margin-top: 1rem; padding: 1.5rem; border-radius: 16px; animation: slideUp 0.5s ease 0.5s both; background: rgba(0,0,0,0.3); box-shadow: inset 0 0 20px rgba(0,255,136,0.05); border: 1px solid rgba(0,255,136,0.15);">
+                <h4 style="margin: 0 0 1.2rem 0; font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 500; color: #00ff88; text-transform:uppercase; letter-spacing: 0.1em; display:flex; align-items:center; gap:8px;">
+                    <div style="width:8px; height:8px; border-radius:50%; background:#00ff88; box-shadow:0 0 10px #00ff88;"></div>
+                    Holographic Analytics
+                </h4>
+                <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 2rem; align-items: center;">
+                    <div style="position: relative; height: 160px; display:flex; justify-content:center; align-items:center;">
+                        <canvas id="circularChart"></canvas>
+                        <div style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); text-align:center;">
+                            <div style="font-size:1.8rem; font-weight:800; font-family:'Outfit',sans-serif; color:var(--text-primary); line-height:1;">${important.length}</div>
+                            <div style="font-size:0.65rem; color:var(--text-secondary); text-transform:uppercase; letter-spacing:0.05em; margin-top:2px;">Important</div>
+                        </div>
+                    </div>
+                    <div style="position: relative; height: 160px;">
+                        <canvas id="hologramChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        const gDiv = document.createElement('div');
+        gDiv.innerHTML = graphHtml;
+        listEl.appendChild(gDiv);
+
+        setTimeout(() => {
+            const ctxC = document.getElementById('circularChart');
+            if(ctxC && window.Chart) {
+                new Chart(ctxC, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Critical', 'High', 'Medium', 'Low', 'Noise'],
+                        datasets: [{
+                            data: [stats.critical, stats.high, stats.medium, stats.low, stats.noise],
+                            backgroundColor: ['#ff3b3b', '#ff9500', '#ffcc00', '#34c759', '#333333'],
+                            borderWidth: 0,
+                            cutout: '80%'
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+                });
+            }
+            const ctxH = document.getElementById('hologramChart');
+            if(ctxH && window.Chart) {
+                const ctx = ctxH.getContext('2d');
+                const grad = ctx.createLinearGradient(0, 0, 0, 160);
+                grad.addColorStop(0, 'rgba(0, 255, 136, 0.3)');
+                grad.addColorStop(1, 'rgba(0, 255, 136, 0)');
+                new Chart(ctxH, {
+                    type: 'line',
+                    data: {
+                        labels: Object.keys(timeline),
+                        datasets: [{
+                            data: Object.values(timeline),
+                            borderColor: '#00ff88',
+                            backgroundColor: grad,
+                            fill: true,
+                            tension: 0.4,
+                            pointRadius: 4,
+                            pointBackgroundColor: '#00ff88'
+                        }]
+                    },
+                    options: { 
+                        responsive: true, maintainAspectRatio: false, 
+                        scales: { 
+                            y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: 'rgba(255,255,255,0.4)', font: {size: 10} } },
+                            x: { grid: { display: false }, ticks: { color: 'rgba(255,255,255,0.4)', font: {size: 10} } }
+                        },
+                        plugins: { legend: { display: false } } 
+                    }
+                });
+            }
+        }, 100);
+
+        const notice = container.querySelector('#noise-reduced-notice');
+        if (noise.length > 0) {
+            notice.style.display = 'block';
+            notice.style.opacity = '1';
+            notice.innerHTML = `
+                <div style="font-weight:600; font-family:'Outfit',sans-serif; color:var(--text-primary); text-transform:uppercase; letter-spacing:0.05rem; margin-bottom:1rem; display:flex; align-items:center; gap:8px;">
+                    <span style="font-size:1.2rem;">🔇</span> Unimportant Box 
+                    <span style="background:rgba(255,255,255,0.1); padding:2px 8px; border-radius:12px; font-size:0.75rem;">${noise.length} bundled items</span>
+                </div>
+                <div style="text-align:left; font-size:0.85rem; padding: 1rem; background: rgba(0,0,0,0.2); border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);">
+                    ${noise.map(n => `
+                        <div style="padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.05); color:var(--text-secondary); display: flex; justify-content: space-between;">
+                            <span>&bull; ${n.key_info || n.reason || n.subject}</span>
+                            <span style="opacity: 0.5;">Score: ${n.priority_score || 0}</span>
+                        </div>
+                    `).join('')}
+                    <div style="padding-top: 10px; font-size: 0.8rem; color: #555; text-align: center; font-style: italic;">Cleaned by ARIA Engine. Requires no action.</div>
+                </div>
+            `;
+        } else {
+            notice.style.display = 'none';
+        }
     }
 
     // ─── Sync logic ────────────────────────────────────────────
@@ -201,8 +319,22 @@ window.Page_Dashboard = async function () {
         try {
             const res = await window.AriaAPI.demoTriage();
             syncLoading.style.display = 'none';
-            statLine.innerHTML = `<strong style="color:#34c759;">🚀 Demo Mode Complete.</strong> ${res.count} realistic seed emails analyzed by NVIDIA NIM AI.`;
+            const statLine = container.querySelector('#digest-stat-line');
             statLine.style.display = 'block';
+            statLine.innerHTML = `
+                <div style="margin-bottom:8px;">
+                    <strong>${res.results.length}</strong> items need your attention. 
+                    <span style="color:var(--text-secondary); margin-left:8px;">${res.noise_count || 0} noise items suppressed.</span>
+                </div>
+                ${res.summary ? `
+                <div style="margin-top: 15px; padding: 15px; background: rgba(52, 199, 89, 0.08); border-radius: 12px; border: 1px solid rgba(52, 199, 89, 0.2);">
+                    <div style="font-weight: 600; color: #34c759; margin-bottom: 8px; font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase;">✦ Executive Summary</div>
+                    <div style="color: var(--text-primary); font-size: 0.95rem; line-height: 1.6;">
+                        ${res.summary.split('\n').filter(l => l.trim()).map(line => `<div style="margin-bottom:4px;">${line}</div>`).join('')}
+                    </div>
+                </div>
+                ` : ''}
+            `;
             renderDigest(res.results);
             demoBtn.textContent = '🚀 Run Hackathon Demo';
             demoBtn.disabled = false;
@@ -273,7 +405,19 @@ window.Page_Dashboard = async function () {
                 return;
             }
 
-            statLine.innerHTML = `<strong style="color:var(--text-primary);">✦ Sync Complete.</strong> ${res.count} emails analyzed. AI surfaced ${res.results.length} items that need your attention.`;
+            statLine.innerHTML = `
+                <div style="margin-bottom:8px;">
+                    <strong style="color:var(--text-primary);">✦ Sync Complete.</strong> ${res.count} emails analyzed.
+                </div>
+                ${res.summary ? `
+                <div style="margin-top: 15px; padding: 15px; background: rgba(52, 199, 89, 0.08); border-radius: 12px; border: 1px solid rgba(52, 199, 89, 0.2);">
+                    <div style="font-weight: 600; color: #34c759; margin-bottom: 8px; font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase;">✦ Executive Summary</div>
+                    <div style="color: var(--text-primary); font-size: 0.95rem; line-height: 1.6;">
+                        ${res.summary.split('\n').filter(l => l.trim()).map(line => `<div style="margin-bottom:4px;">${line}</div>`).join('')}
+                    </div>
+                </div>
+                ` : ''}
+            `;
             statLine.style.display = 'block';
             renderDigest(res.results);
             fetchBtn.textContent = '✓ Inbox Synced — Fetch Again';
@@ -296,10 +440,15 @@ window.Page_Dashboard = async function () {
             container.querySelector('#sync-email').value = ctx.email;
             container.querySelector('#user-badge').textContent = ctx.email;
 
-            // Do NOT hide the password field. Just explain it's optional.
-            const passLabel = container.querySelector('#sync-pass').previousElementSibling;
-            if (passLabel) {
-                passLabel.innerHTML = 'App Password <em style="font-style:normal;opacity:0.5;">(Optional — leave blank to use saved password)</em>';
+            // Do NOT overwrite the tooltip! Check if the icon button exists.
+            const infoBtn = container.querySelector('.tooltip-container');
+            if (infoBtn) {
+                // Tooltip is present, don't touch the label content.
+            } else {
+                const passLabel = container.querySelector('#sync-pass').previousElementSibling;
+                if (passLabel) {
+                    passLabel.innerHTML = 'App Password <em style="font-style:normal;opacity:0.5;">(Optional — leave blank)</em>';
+                }
             }
         }
     } catch (e) { }

@@ -90,6 +90,7 @@ FAKE URGENCY INDICATORS (be skeptical):
 8. "Reply all" where user is CC'd = reduce priority by 15
 9. Newsletters = category "promotional", max priority 35
 10. No deadline + no question + FYI tone = max priority 55
+11. OTPs, 2FA, fake offers, marketing scams, and generic promotional emails = category "noise", max priority 5
 
 === OUTPUT FORMAT ===
 You MUST return ONLY a single JSON object. Do NOT include any preamble, conversational filler, or markdown formatting (no \`\`\`json).
@@ -115,10 +116,11 @@ Return ONLY the JSON object, no markdown fences, no explanation.`;
  * Enriches with optional context the front-end can supply.
  *
  * @param {object} email
+ * @param {object} [context] - User context (workday, vip_senders, etc.)
  * @returns {string}
  */
-function buildUserPrompt(email) {
-  const MAX_BODY_LENGTH = 5000;
+function buildUserPrompt(email, context = null) {
+  const MAX_BODY_LENGTH = 1200;
   let body = email.body || '';
 
   if (body.length > MAX_BODY_LENGTH) {
@@ -138,11 +140,20 @@ function buildUserPrompt(email) {
   const senderTag = TAG('SENDER_NAME');
   const bodyTag = TAG('EMAIL_BODY');
 
-  const parts = [
-    `Subject: ${subjectTag.start}${email.subject}${subjectTag.end}`,
-    `From Name: ${senderTag.start}${email.senderName || 'Unknown'}${senderTag.end}`,
-    `From Alpha: ${email.from}`,
-  ];
+  const parts = [];
+
+  if (context) {
+    parts.push('=== USER SPECIFIC CONTEXT (PRIORITIZE THIS) ===');
+    if (context.workday) parts.push(`User's Typical Workday: ${context.workday}`);
+    if (context.vip_senders) parts.push(`User's VIP / High-Priority Senders: ${context.vip_senders}`);
+    if (context.focus_goal) parts.push(`User's Current Focus Goal: ${context.focus_goal}`);
+    parts.push('===============================================');
+    parts.push('');
+  }
+
+  parts.push(`Subject: ${subjectTag.start}${email.subject}${subjectTag.end}`);
+  parts.push(`From Name: ${senderTag.start}${email.senderName || 'Unknown'}${senderTag.end}`);
+  parts.push(`From Alpha: ${email.from}`);
 
   if (email.to) parts.push(`To: ${email.to}`);
   if (email.cc?.length) parts.push(`CC: ${email.cc.join(', ')}`);
